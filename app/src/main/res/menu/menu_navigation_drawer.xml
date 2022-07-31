@@ -16,7 +16,7 @@
         android:title="be a movie maker" />
 
     <item
-        android:id="@+id/translator"
+        android:id="@+id/menu_translator"
         android:icon="@drawable/ic_translate"
         android:title="be a translator" />
 

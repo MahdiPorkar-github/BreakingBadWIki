@@ -3,6 +3,7 @@ package com.example.breakingbadwiki
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,24 @@ class MainActivity : AppCompatActivity() {
                 R.string.openDrawer, R.string.closeDrawer
             )
         actionBarDrawerToggle.syncState()
+        binding.drawerLayoutMain.addDrawerListener(actionBarDrawerToggle)
+        binding.navigationViewMain.setNavigationItemSelectedListener {
+
+            when (it.itemId) {
+
+                R.id.menu_writer -> {binding.drawerLayoutMain.closeDrawer(GravityCompat.START)}
+                R.id.menu_photograph -> {}
+                R.id.menu_video_maker -> {}
+                R.id.menu_translator -> {}
+
+                ///////////////////////
+
+                R.id.menu_open_wikimedia -> {}
+                R.id.menu_open_wikipedia -> {}
+
+            }
+            true
+        }
 
     }
 }
