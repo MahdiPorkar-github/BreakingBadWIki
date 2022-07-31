@@ -30,12 +30,19 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <FrameLayout
+            android:id="@+id/frame_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_main"
-            app:menu="@menu/menu_bottom_navigation"
-            android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            app:menu="@menu/menu_bottom_navigation" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
