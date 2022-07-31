@@ -31,6 +31,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:menu="@menu/menu_bottom_navigation"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="56dp"/>
