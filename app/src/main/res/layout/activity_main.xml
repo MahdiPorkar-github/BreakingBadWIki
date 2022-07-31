@@ -30,6 +30,11 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
