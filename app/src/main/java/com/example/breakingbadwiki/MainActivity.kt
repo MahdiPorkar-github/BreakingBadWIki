@@ -56,6 +56,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        binding.bottomNavigationMain.setOnItemReselectedListener {
+            // do nothing
+        }
 
     }
     private fun replaceFragment(fragment: Fragment) {
