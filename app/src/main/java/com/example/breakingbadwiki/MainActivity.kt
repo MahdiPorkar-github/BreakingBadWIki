@@ -2,6 +2,7 @@ package com.example.breakingbadwiki
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,5 +13,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbarMain)
+        val actionBarDrawerToggle =
+            ActionBarDrawerToggle(
+                this, binding.drawerLayoutMain, binding.toolbarMain,
+                R.string.openDrawer, R.string.closeDrawer
+            )
+        actionBarDrawerToggle.syncState()
+
     }
 }
