@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
 
             when (it.itemId) {
 
-                R.id.menu_writer -> {binding.drawerLayoutMain.closeDrawer(GravityCompat.START)}
+                R.id.menu_writer -> {
+                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                }
                 R.id.menu_photograph -> {}
                 R.id.menu_video_maker -> {}
                 R.id.menu_translator -> {}
@@ -38,6 +40,16 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        binding.bottomNavigationMain.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_explore -> {}
+                R.id.menu_trend -> {}
+                R.id.menu_profile -> {}
+            }
+            true
+        }
+
 
     }
 }
