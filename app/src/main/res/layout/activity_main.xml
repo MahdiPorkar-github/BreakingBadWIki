@@ -16,7 +16,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            android:layout_height="56dp"
+            app:titleTextAppearance="@style/toolbar_theme"
+            android:theme="@style/toolbar_theme" />
 
 
     </com.google.android.material.appbar.AppBarLayout>

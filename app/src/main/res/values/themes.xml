@@ -14,4 +14,10 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/primary_regular</item>
     </style>
+
+    <style name="toolbar_theme" parent="Theme.MaterialComponents">
+        <item name="fontFamily">@font/primary_bold</item>
+        <item name="android:textSize">24sp</item>
+
+    </style>
 </resources>
