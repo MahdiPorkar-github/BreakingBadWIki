@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/drawable/ic_video_maker.xml" value="0.112" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/drawable/ic_wikipedia_icon.xml" value="0.112" />
-        <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/activity_main.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/fragment_explore.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/fragment_profile.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/fragment_trend.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/header_main.xml" value="0.4" />
+        <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/layout/item_explore.xml" value="0.264" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/Mahdi/AndroidStudioProjects/BreakingBadWiki/app/src/main/res/menu/menu_navigation_drawer.xml" value="0.21822916666666667" />
       </map>
