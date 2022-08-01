@@ -1,12 +1,14 @@
 package com.example.breakingbadwiki.adapter
 
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.breakingbadwiki.data.ItemPost
 import com.example.breakingbadwiki.databinding.ItemTrendBinding
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class TrendAdapter(private val data: ArrayList<ItemPost>) :
     RecyclerView.Adapter<TrendAdapter.TrendViewHolder>() {
@@ -16,7 +18,9 @@ class TrendAdapter(private val data: ArrayList<ItemPost>) :
     inner class TrendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindViews(itemPost: ItemPost) {
 
-            Glide.with(itemView.context).load(itemPost.imageUrl).into(binding.itemTrendImgMain)
+            Glide.with(itemView.context).load(itemPost.imageUrl).transform(
+                RoundedCornersTransformation(32,8)
+            ).into(binding.itemTrendImgMain)
             binding.itemTrendTxtTitle.text = itemPost.txtTitle
             binding.itemTrendTxtSubtitle.text = itemPost.txtSubtitle
             binding.itemTrendTxtInsight.text = itemPost.insight
