@@ -8,7 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_trend"
         android:layout_width="match_parent"
-        tools:listitem="@layout/item_explore"
+        tools:listitem="@layout/item_trend"
         android:paddingBottom="16dp"
         android:layout_height="wrap_content"/>
 
