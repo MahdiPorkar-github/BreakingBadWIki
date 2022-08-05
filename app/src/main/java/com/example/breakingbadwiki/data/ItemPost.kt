@@ -1,5 +1,9 @@
 package com.example.breakingbadwiki.data
 
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
+
+@Parcelize
 data class ItemPost(
     val imageUrl: String,
     val txtTitle: String,
@@ -9,4 +13,4 @@ data class ItemPost(
     // For trend fragment
     val isTrend: Boolean,
     val insight: String
-)
+) : Parcelable

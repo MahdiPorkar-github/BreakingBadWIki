@@ -1,5 +1,6 @@
 package com.example.breakingbadwiki.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.breakingbadwiki.MainActivity2
 import com.example.breakingbadwiki.adapter.ExploreAdapter
+import com.example.breakingbadwiki.adapter.ItemEvents
 import com.example.breakingbadwiki.data.ItemPost
 import com.example.breakingbadwiki.databinding.FragmentExploreBinding
 
-class ExploreFragment : Fragment() {
+const val SEND_DATA_TO_MAIN_ACTIVITY2 ="sendData"
+
+class ExploreFragment : Fragment() , ItemEvents{
 
     lateinit var binding: FragmentExploreBinding
 
@@ -88,10 +93,17 @@ class ExploreFragment : Fragment() {
 
 
             )
-        val myAdapter = ExploreAdapter(exploreData)
+        val myAdapter = ExploreAdapter(exploreData,this)
         binding.recyclerExplore.adapter = myAdapter
         binding.recyclerExplore.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    }
+
+    override fun onItemClicked(itemPost: ItemPost) {
+
+        val intent = Intent(activity,MainActivity2::class.java)
+        intent.putExtra(SEND_DATA_TO_MAIN_ACTIVITY2,itemPost)
+        startActivity(intent)
     }
 
 }

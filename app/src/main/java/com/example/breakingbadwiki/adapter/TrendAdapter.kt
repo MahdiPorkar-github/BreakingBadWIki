@@ -10,7 +10,7 @@ import com.example.breakingbadwiki.data.ItemPost
 import com.example.breakingbadwiki.databinding.ItemTrendBinding
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
-class TrendAdapter(private val data: ArrayList<ItemPost>) :
+class TrendAdapter(private val data: ArrayList<ItemPost>,private val itemEvents: ItemEvents) :
     RecyclerView.Adapter<TrendAdapter.TrendViewHolder>() {
 
     lateinit var binding: ItemTrendBinding
@@ -25,6 +25,11 @@ class TrendAdapter(private val data: ArrayList<ItemPost>) :
             binding.itemTrendTxtSubtitle.text = itemPost.txtSubtitle
             binding.itemTrendTxtInsight.text = itemPost.insight
             binding.itemTrendCounter.text = (adapterPosition + 1).toString()
+
+            itemView.setOnClickListener {
+
+                itemEvents.onItemClicked(itemPost)
+            }
 
         }
     }

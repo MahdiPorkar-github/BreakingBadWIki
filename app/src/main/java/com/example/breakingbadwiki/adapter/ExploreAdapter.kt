@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.breakingbadwiki.data.ItemPost
 import com.example.breakingbadwiki.databinding.ItemExploreBinding
 
-class ExploreAdapter(private val data: ArrayList<ItemPost>) :
+class ExploreAdapter(private val data: ArrayList<ItemPost>,private val itemEvents: ItemEvents) :
     RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() {
 
     lateinit var binding: ItemExploreBinding
@@ -20,6 +20,10 @@ class ExploreAdapter(private val data: ArrayList<ItemPost>) :
             binding.txtExploreTitle.text = itemPost.txtTitle
             binding.txtExploreSubtitle.text = itemPost.txtSubtitle
             binding.txtExploreDetail.text = itemPost.txtDetail
+
+            itemView.setOnClickListener {
+                itemEvents.onItemClicked(itemPost)
+            }
 
         }
     }
@@ -37,4 +41,5 @@ class ExploreAdapter(private val data: ArrayList<ItemPost>) :
     override fun getItemCount(): Int {
         return data.size
     }
+
 }

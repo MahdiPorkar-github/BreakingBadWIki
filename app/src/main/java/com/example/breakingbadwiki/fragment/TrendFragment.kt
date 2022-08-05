@@ -1,5 +1,6 @@
 package com.example.breakingbadwiki.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.breakingbadwiki.MainActivity2
+import com.example.breakingbadwiki.adapter.ItemEvents
 import com.example.breakingbadwiki.adapter.TrendAdapter
 import com.example.breakingbadwiki.data.ItemPost
 import com.example.breakingbadwiki.databinding.FragmentTrendBinding
 
-class TrendFragment : Fragment() {
+class TrendFragment : Fragment() ,ItemEvents{
 
     lateinit var binding: FragmentTrendBinding
 
@@ -86,11 +89,17 @@ class TrendFragment : Fragment() {
                 "+400 K"
             ),
         )
-        val myAdapter = TrendAdapter(dataTrend)
+        val myAdapter = TrendAdapter(dataTrend,this)
         binding.recyclerTrend.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.recyclerTrend.adapter = myAdapter
 
+    }
+
+    override fun onItemClicked(itemPost: ItemPost) {
+        val intent = Intent(activity, MainActivity2::class.java)
+        intent.putExtra(SEND_DATA_TO_MAIN_ACTIVITY2,itemPost)
+        startActivity(intent)
     }
 
 }
