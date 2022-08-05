@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_detail_open_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_wikipedia_detail"
+        app:backgroundTint="@color/orange"
+        app:fabSize="mini"
+        app:layout_anchor="@id/app_bar_main"
+        app:layout_anchorGravity="end|bottom"
+        app:tint="@color/white" />
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MaterialComponents"
+            app:contentScrim="@color/orange"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/img_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/saul"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_main2"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txt_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jimmy McGill"
+                android:textColor="@color/black_light"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/txt_detail_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="businessman, retired lawyer, and former con artist"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="76dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray_light" />
+
+            <TextView
+                android:id="@+id/txt_detail_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="6dp"
+                android:text="Jimmy McGill was born on November 12, 1960, to Ruth and Charles McGill Sr in Cicero, Illinois, a suburb of Chicago. He had one older brother, Charles 'Chuck' McGill Jr. Jimmy later worked for his father at his small corner store and watched as he was repeatedly taken advantage of by scam artists. After one of the scam artists offered young Jimmy a life lesson about wolves and sheep, he began stealing money from his father's cash register ('Inflatable'). Over the following years, Jimmy embezzled nearly $14,000 from the store, which eventually led to its closure. Charles Sr died six months later, which Chuck secretly blamed on Jimmy's actions ('Rebecca',  'Chicanery'); Jimmy blamed his father due to his over-excessive generosity. ('Slip')
+                            In his teenage years, Jimmy began to play his own scams to get quick money. In one of his most famous scams, he would find the most slippery patches of ice every winter, stage a fall, and earn himself a fair amount of money, which earned him the nickname 'Slippin' Jimmy' ('Uno'). In another one of his scams, Jimmy (using the alias 'Saul Goodman') worked with his close friend and fellow con artist Marco Pasternak to trick others into trading cash for fake Rolex watches ('Hero'). Jimmy also produced fake IDs for his classmates in high school ('Nailed').
+                            In his teenage years, Jimmy began to play his own scams to get quick money. In one of his most famous scams, he would find the most slippery patches of ice every winter, stage a fall, and earn himself a fair amount of money, which earned him the nickname 'Slippin' Jimmy' ('Uno'). In another one of his scams, Jimmy (using the alias 'Saul Goodman') worked with his close friend and fellow con artist Marco Pasternak to trick others into trading cash for fake Rolex watches ('Hero'). Jimmy also produced fake IDs for his classmates in high school ('Nailed').
+                            In the early 1990s, Jimmy divorced his first wife when she cheated on him with a guy named Chet, who happened to owe Jimmy money. In 1992, a drunken Jimmy encountered Chet at a local Dairy Queen and decided to perform a 'Chicago Sunroof' (defecating through the sunroof of Chet's car) as revenge. Unbeknownst to him, however, Chet's children were in the back seat. Even worse, Chet had ties to the local prosecutors. Jimmy was quickly brought in by the police on charges of property damage, assault, and and a possible sex offense. He was booked and put in pre-trial detention ('Marco')."
+                android:textColor="@color/black_light"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
