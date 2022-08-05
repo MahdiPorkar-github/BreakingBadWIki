@@ -53,7 +53,31 @@ class MainActivity2 : AppCompatActivity() {
 
 
         binding.fabDetailOpenWebsite.setOnClickListener {
-            val url = "https://breakingbad.fandom.com/wiki/Breaking_Bad_Wiki"
+            var url = "https://breakingbad.fandom.com/wiki/Breaking_Bad_Wiki"
+            when (itemPost.txtTitle) {
+                "Michael 'Mike' Ehrmantraut" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Mike_Ehrmantraut"
+                }
+                "Gustavo 'Gus' Fring" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Gustavo_Fring"
+                }
+                "Hector Salamanca" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Hector_Salamanca"
+                }
+                "Hank Schrader" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Hank_Schrader"
+                }
+                "Walter White" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Walter_White"
+                }
+                "Saul Goodman" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Jimmy_McGill"
+                }
+                "Jesse Pinkman" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Jesse_Pinkman"
+                }
+
+            }
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
 
