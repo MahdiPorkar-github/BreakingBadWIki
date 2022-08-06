@@ -8,7 +8,9 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
+import com.example.breakingbadwiki.databinding.FragmentPhotographerBinding
 import com.example.breakingbadwiki.fragment.ExploreFragment
+import com.example.breakingbadwiki.fragment.PhotographerFragment
 import com.example.breakingbadwiki.fragment.ProfileFragment
 import com.example.breakingbadwiki.fragment.TrendFragment
 
@@ -55,6 +57,17 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_photograph -> {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    // load fragment
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.add(R.id.frame_main,PhotographerFragment())
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+
+                    // check menu item
+                    binding.navigationViewMain.menu.getItem(1).isChecked = true
+
+                    // close drawer
+                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
 
                 }
                 R.id.menu_video_maker -> {
@@ -91,6 +104,9 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(ProfileFragment())
                 }
             }
+
+            binding.navigationViewMain.menu.getItem(1).isChecked = false
+
             true
         }
         binding.bottomNavigationMain.setOnItemReselectedListener {
@@ -107,5 +123,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun firstRun() {
         replaceFragment(ExploreFragment())
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // check menu item off
+        binding.navigationViewMain.menu.getItem(1).isChecked = false
     }
 }
