@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -13,6 +14,7 @@ import com.example.breakingbadwiki.fragment.ExploreFragment
 import com.example.breakingbadwiki.fragment.PhotographerFragment
 import com.example.breakingbadwiki.fragment.ProfileFragment
 import com.example.breakingbadwiki.fragment.TrendFragment
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -71,10 +73,18 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 R.id.menu_video_maker -> {
+
+                    Snackbar.make(binding.root,"You can create video",Snackbar.LENGTH_LONG).setAction("Signup") {
+                        // new window appears
+                    }.setActionTextColor(ContextCompat.getColor(this,R.color.orange_dark))
+                        .show()
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                 }
                 R.id.menu_translator -> {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+
+                    // open an activity
+
                 }
 
                 ///////////////////////
