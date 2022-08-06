@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.breakingbadwiki.MainActivity2
+import com.example.breakingbadwiki.activity.MainActivity2
 import com.example.breakingbadwiki.adapter.ExploreAdapter
 import com.example.breakingbadwiki.adapter.ItemEvents
 import com.example.breakingbadwiki.data.ItemPost
@@ -101,7 +101,7 @@ class ExploreFragment : Fragment() , ItemEvents{
 
     override fun onItemClicked(itemPost: ItemPost) {
 
-        val intent = Intent(activity,MainActivity2::class.java)
+        val intent = Intent(activity, MainActivity2::class.java)
         intent.putExtra(SEND_DATA_TO_MAIN_ACTIVITY2,itemPost)
         startActivity(intent)
     }

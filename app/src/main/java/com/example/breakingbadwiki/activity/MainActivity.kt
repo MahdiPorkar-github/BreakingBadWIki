@@ -1,5 +1,6 @@
-package com.example.breakingbadwiki
+package com.example.breakingbadwiki.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -8,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.breakingbadwiki.R
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
-import com.example.breakingbadwiki.databinding.FragmentPhotographerBinding
 import com.example.breakingbadwiki.fragment.ExploreFragment
 import com.example.breakingbadwiki.fragment.PhotographerFragment
 import com.example.breakingbadwiki.fragment.ProfileFragment
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
                     Snackbar.make(binding.root,"You can create video",Snackbar.LENGTH_LONG).setAction("Signup") {
                         // new window appears
-                    }.setActionTextColor(ContextCompat.getColor(this,R.color.orange_dark))
+                    }.setActionTextColor(ContextCompat.getColor(this, R.color.orange_dark))
                         .show()
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                 }
@@ -84,7 +85,8 @@ class MainActivity : AppCompatActivity() {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
 
                     // open an activity
-
+                    val intent = Intent(this,MainActivity3::class.java)
+                    startActivity(intent)
                 }
 
                 ///////////////////////

@@ -1,4 +1,4 @@
-package com.example.breakingbadwiki
+package com.example.breakingbadwiki.activity
 
 import android.content.Intent
 import android.net.Uri

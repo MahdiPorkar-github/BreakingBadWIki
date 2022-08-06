@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.breakingbadwiki.MainActivity2
+import com.example.breakingbadwiki.activity.MainActivity2
 import com.example.breakingbadwiki.adapter.ItemEvents
 import com.example.breakingbadwiki.adapter.TrendAdapter
 import com.example.breakingbadwiki.data.ItemPost
