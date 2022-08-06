@@ -1,6 +1,7 @@
 package com.example.breakingbadwiki.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -89,10 +90,11 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
 
-                ///////////////////////
+                ////////////////////////////////////////////////////////////
 
                 R.id.menu_open_wikimedia -> {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    openWebsite("https://breakingbad.fandom.com/wiki/Breaking_Bad_Wiki")
                 }
                 R.id.menu_open_wikipedia -> {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
@@ -125,6 +127,11 @@ class MainActivity : AppCompatActivity() {
             // do nothing
         }
 
+    }
+
+    private fun openWebsite(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     private fun replaceFragment(fragment: Fragment) {
