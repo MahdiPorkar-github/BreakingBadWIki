@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.breakingbadwiki.data.Person
 import com.example.breakingbadwiki.databinding.FragmentProfileBinding
 
-class ProfileFragment:Fragment() {
+class ProfileFragment(person: Person):Fragment() {
 
     lateinit var binding: FragmentProfileBinding
 
@@ -22,6 +23,7 @@ class ProfileFragment:Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
 }

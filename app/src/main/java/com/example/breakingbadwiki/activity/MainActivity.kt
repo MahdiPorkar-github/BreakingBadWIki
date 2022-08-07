@@ -1,5 +1,7 @@
 package com.example.breakingbadwiki.activity
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +13,21 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.R
+import com.example.breakingbadwiki.data.Person
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
+import com.example.breakingbadwiki.databinding.DialogSignUpBinding
 import com.example.breakingbadwiki.fragment.ExploreFragment
 import com.example.breakingbadwiki.fragment.PhotographerFragment
 import com.example.breakingbadwiki.fragment.ProfileFragment
 import com.example.breakingbadwiki.fragment.TrendFragment
 import com.google.android.material.snackbar.Snackbar
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityMainBinding
+    lateinit var person: Person
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -63,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                     // load fragment
                     val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.frame_main,PhotographerFragment())
+                    transaction.add(R.id.frame_main, PhotographerFragment())
                     transaction.addToBackStack(null)
                     transaction.commit()
 
@@ -76,9 +84,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_video_maker -> {
 
-                    Snackbar.make(binding.root,"You can create video",Snackbar.LENGTH_LONG).setAction("Signup") {
-                        // new window appears
-                    }.setActionTextColor(ContextCompat.getColor(this, R.color.orange_dark))
+                    Snackbar.make(binding.root, "You can create video", Snackbar.LENGTH_LONG)
+                        .setAction("Signup") {
+                            // new window appears
+                        }.setActionTextColor(ContextCompat.getColor(this, R.color.orange_dark))
                         .show()
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                 }
@@ -86,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
 
                     // open an activity
-                    val intent = Intent(this,MainActivity3::class.java)
+                    val intent = Intent(this, MainActivity3::class.java)
                     startActivity(intent)
                 }
 
@@ -106,16 +115,46 @@ class MainActivity : AppCompatActivity() {
 
         firstRun()
 
+        var currentBottomNavigation = R.id.menu_explore
         binding.bottomNavigationMain.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_explore -> {
+                    currentBottomNavigation = R.id.menu_explore
                     replaceFragment(ExploreFragment())
                 }
                 R.id.menu_trend -> {
+                    currentBottomNavigation = R.id.menu_trend
                     replaceFragment(TrendFragment())
                 }
                 R.id.menu_profile -> {
-                    replaceFragment(ProfileFragment())
+                    try {
+                        replaceFragment(ProfileFragment(person))
+                    } catch (e: Exception) {
+                        val dialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        dialog.titleText = "You are not a writer!"
+                        dialog.confirmText = "SignUp"
+                        dialog.cancelText = "Cancel"
+                        dialog.contentText = "Wanna be a writer?"
+
+                        dialog.setCancelClickListener {
+                            dialog.dismiss()
+                            binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = true
+                        }
+
+                        dialog.setConfirmClickListener {
+                            dialog.dismiss()
+                            val dialog = AlertDialog.Builder(this)
+                            val view = DialogSignUpBinding.inflate(layoutInflater).root
+                            dialog.setView(view)
+                            dialog.setCancelable(true)
+                            dialog.create()
+                            dialog.show()
+
+
+                        }
+
+                        dialog.show()
+                    }
                 }
             }
 
