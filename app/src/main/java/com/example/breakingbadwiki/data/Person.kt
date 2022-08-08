@@ -1,3 +1,3 @@
 package com.example.breakingbadwiki.data
 
-data class Person(val name: String, val job: String, val gmail: String, val id: String)
+data class Person(var name: String, var job: String, var gmail: String, var id: String)

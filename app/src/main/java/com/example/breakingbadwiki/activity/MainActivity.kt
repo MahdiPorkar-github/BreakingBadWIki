@@ -25,7 +25,6 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    lateinit var person: Person
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         firstRun()
 
         var currentBottomNavigation = R.id.menu_explore
+        var person = Person("","","","")
         binding.bottomNavigationMain.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_explore -> {
@@ -126,9 +126,10 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(TrendFragment())
                 }
                 R.id.menu_profile -> {
-                    try {
-                        replaceFragment(ProfileFragment(person))
-                    } catch (e: Exception) {
+
+                        if (person.name.isNotEmpty()) {
+                            replaceFragment(ProfileFragment(person))
+                        } else {
                         val sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                         sweetAlertDialog.titleText = "You are not a writer!"
                         sweetAlertDialog.confirmText = "SignUp"
@@ -164,7 +165,7 @@ class MainActivity : AppCompatActivity() {
                                     val txtName = dialogBinding.dialogEdtName.text.toString()
                                     val txtGmail = dialogBinding.dialogEdtGmail.text.toString()
                                     val txtID = dialogBinding.dialogEdtId.text.toString()
-                                    person = Person(txtName,"Writer",txtGmail,txtID)
+                                    person = Person(txtName, "Writer", txtGmail, txtID)
                                     replaceFragment(ProfileFragment(person))
                                     alertDialog.dismiss()
 

@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_txt_gmail" />
 
     <Button
-        android:id="@+id/profile_delete_account"
+        android:id="@+id/profile_btn_delete_account"
         android:text="Delete My Account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
