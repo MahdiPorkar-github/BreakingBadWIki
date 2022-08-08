@@ -1,7 +1,6 @@
 package com.example.breakingbadwiki.activity
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -130,31 +129,57 @@ class MainActivity : AppCompatActivity() {
                     try {
                         replaceFragment(ProfileFragment(person))
                     } catch (e: Exception) {
-                        val dialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                        dialog.titleText = "You are not a writer!"
-                        dialog.confirmText = "SignUp"
-                        dialog.cancelText = "Cancel"
-                        dialog.contentText = "Wanna be a writer?"
+                        val sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        sweetAlertDialog.titleText = "You are not a writer!"
+                        sweetAlertDialog.confirmText = "SignUp"
+                        sweetAlertDialog.cancelText = "Cancel"
+                        sweetAlertDialog.contentText = "Wanna be a writer?"
 
-                        dialog.setCancelClickListener {
-                            dialog.dismiss()
-                            binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = true
+                        sweetAlertDialog.setCancelClickListener {
+                            sweetAlertDialog.dismiss()
+                            binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked =
+                                true
                         }
 
-                        dialog.setConfirmClickListener {
-                            dialog.dismiss()
-                            val dialog = AlertDialog.Builder(this)
-                            val view = DialogSignUpBinding.inflate(layoutInflater).root
-                            dialog.setView(view)
-                            dialog.setCancelable(true)
-                            dialog.create()
-                            dialog.show()
+                        sweetAlertDialog.setConfirmClickListener {
+                            sweetAlertDialog.dismiss()
+                            val alertDialog = AlertDialog.Builder(this).create()
+                            val dialogBinding = DialogSignUpBinding.inflate(layoutInflater)
+                            alertDialog.setView(dialogBinding.root)
+                            alertDialog.setCancelable(true)
+                            alertDialog.show()
+                            binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked =
+                                true
+
+                            dialogBinding.btnSignUp.setOnClickListener {
+                                currentBottomNavigation = R.id.menu_profile
+                                binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked =
+                                    true
 
 
+
+
+                                if (dialogBinding.dialogEdtName.length() > 0 && dialogBinding.dialogEdtGmail.length() > 0 && dialogBinding.dialogEdtId.length() > 0) {
+
+                                    val txtName = dialogBinding.dialogEdtName.text.toString()
+                                    val txtGmail = dialogBinding.dialogEdtGmail.text.toString()
+                                    val txtID = dialogBinding.dialogEdtId.text.toString()
+                                    person = Person(txtName,"Writer",txtGmail,txtID)
+                                    replaceFragment(ProfileFragment(person))
+                                    alertDialog.dismiss()
+
+                                } else {
+                                    Toast.makeText(this, "Complete all parts", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+
+
+                            }
                         }
 
-                        dialog.show()
+                        sweetAlertDialog.show()
                     }
+
                 }
             }
 

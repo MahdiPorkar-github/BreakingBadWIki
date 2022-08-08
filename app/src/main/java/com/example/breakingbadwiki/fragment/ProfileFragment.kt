@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.breakingbadwiki.data.Person
 import com.example.breakingbadwiki.databinding.FragmentProfileBinding
 
-class ProfileFragment(person: Person):Fragment() {
+class ProfileFragment(val person: Person):Fragment() {
 
     lateinit var binding: FragmentProfileBinding
 
@@ -23,6 +23,11 @@ class ProfileFragment(person: Person):Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.profileTxtUsername.text = person.name
+        binding.profileTxtId.text = person.id
+        binding.profileTxtGmail.text = person.gmail
+        binding.profileTxtJob.text = person.job
 
     }
 
