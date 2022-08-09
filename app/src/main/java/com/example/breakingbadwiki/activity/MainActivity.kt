@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
@@ -22,7 +21,6 @@ import com.example.breakingbadwiki.fragment.PhotographerFragment
 import com.example.breakingbadwiki.fragment.ProfileFragment
 import com.example.breakingbadwiki.fragment.TrendFragment
 import com.google.android.material.snackbar.Snackbar
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +30,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // if a writer joins the app we will re assign person values
+        var person = Person("", "", "", "")
+
 
         setSupportActionBar(binding.toolbarMain)
         val actionBarDrawerToggle =
@@ -47,24 +49,57 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
 
                 R.id.menu_writer -> {
+
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
-                    val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                    dialog.titleText = "Alert!"
-                    dialog.confirmText = "Confirm"
-                    dialog.cancelText = "Cancel"
-                    dialog.contentText = "Wanna be a writer?"
+                    if (person.name.isNotEmpty()) {
+                        val saDialog = SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                        saDialog.titleText = "Information!"
+                        saDialog.confirmText = "Confirm"
+                        saDialog.contentText = "You are already a writter"
+                        saDialog.show()
+                    } else {
 
-                    dialog.setCancelClickListener {
-                        dialog.dismiss()
+                        val sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                        sweetAlertDialog.titleText = "Alert!"
+                        sweetAlertDialog.confirmText = "Confirm"
+                        sweetAlertDialog.cancelText = "Cancel"
+                        sweetAlertDialog.contentText = "Wanna be a writer?"
+
+                        sweetAlertDialog.setCancelClickListener {
+                            sweetAlertDialog.dismiss()
+                        }
+
+                        sweetAlertDialog.setConfirmClickListener {
+                            sweetAlertDialog.dismiss()
+                            val alertDialog = AlertDialog.Builder(this).create()
+                            val dialogBinding = DialogSignUpBinding.inflate(layoutInflater)
+                            alertDialog.setView(dialogBinding.root)
+                            alertDialog.setCancelable(true)
+                            alertDialog.show()
+
+                            dialogBinding.btnSignUp.setOnClickListener {
+
+                                if (dialogBinding.dialogEdtName.length() > 0 && dialogBinding.dialogEdtGmail.length() > 0 && dialogBinding.dialogEdtId.length() > 0) {
+                                    btnFabState(true)
+                                    val txtName = dialogBinding.dialogEdtName.text.toString()
+                                    val txtGmail = dialogBinding.dialogEdtGmail.text.toString()
+                                    val txtID = dialogBinding.dialogEdtId.text.toString()
+                                    person = Person(txtName, "Writer", txtGmail, txtID)
+                                    replaceFragment(ProfileFragment(person))
+                                    alertDialog.dismiss()
+                                    checkCurrentBNItem(R.id.menu_profile)
+
+                                } else {
+                                    Toast.makeText(this, "Complete all parts", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+
+                            }
+                        }
+
+                        sweetAlertDialog.show()
+
                     }
-
-                    dialog.setConfirmClickListener {
-                        dialog.dismiss()
-                        Toast.makeText(this, "you are now a writer", Toast.LENGTH_SHORT).show()
-                    }
-
-                    dialog.show()
-
                 }
 
                 R.id.menu_photograph -> {
@@ -116,7 +151,6 @@ class MainActivity : AppCompatActivity() {
         firstRun()
 
         var currentBottomNavigation = R.id.menu_explore
-        var person = Person("", "", "", "")
         btnFabState(false)
         binding.bottomNavigationMain.setOnItemSelectedListener {
             when (it.itemId) {
@@ -184,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            binding.navigationViewMain.menu.getItem(1).isChecked = false
+//            binding.navigationViewMain.menu.getItem(1).isChecked = false
 
             true
         }
@@ -223,5 +257,10 @@ class MainActivity : AppCompatActivity() {
 
     fun checkCurrentBNItem(currentBottomNavigation: Int) {
         binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = true
+    }
+
+    fun addWriter(person: Person) {
+
+
     }
 }
