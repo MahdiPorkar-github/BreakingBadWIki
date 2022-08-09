@@ -4,7 +4,7 @@
     <item
         android:id="@+id/menu_writer"
         android:icon="@drawable/ic_writer"
-        android:title="be a writer" />
+        android:title="Be a writer" />
     <item
         android:id="@+id/menu_groups"
         android:checkable="true"
@@ -12,14 +12,9 @@
         android:title="Groups" />
 
     <item
-        android:id="@+id/menu_video_maker"
+        android:id="@+id/menu_other"
         android:icon="@drawable/ic_video_maker"
-        android:title="be a movie maker" />
-
-    <item
-        android:id="@+id/menu_translator"
-        android:icon="@drawable/ic_translate"
-        android:title="be a translator" />
+        android:title="Other series" />
 
 
     <item android:title="our websites">
@@ -27,11 +22,8 @@
             <item
                 android:id="@+id/menu_open_wikipedia"
                 android:icon="@drawable/ic_wikipedia"
-                android:title="visit wikipedia" />
-            <item
-                android:id="@+id/menu_open_wikimedia"
-                android:icon="@drawable/ic_wikimedia"
-                android:title="visit wikimedia" />
+                android:title="Visit breakingBadWiki" />
+
         </menu>
     </item>
 

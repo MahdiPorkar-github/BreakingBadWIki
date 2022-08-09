@@ -95,6 +95,14 @@ class MainActivity2 : AppCompatActivity() {
                     url = "https://breakingbad.fandom.com/wiki/Madrigal_Electromotive_GmbH"
                 }
 
+                "El Camino: A Breaking Bad Movie" -> {
+                    url = "https://breakingbad.fandom.com/wiki/El_Camino"
+                }
+
+                "Better Call Saul" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Better_Call_Saul_(TV_series)"
+                }
+
             }
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)

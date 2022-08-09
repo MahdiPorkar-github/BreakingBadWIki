@@ -16,10 +16,7 @@ import com.example.breakingbadwiki.R
 import com.example.breakingbadwiki.data.Person
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
 import com.example.breakingbadwiki.databinding.DialogSignUpBinding
-import com.example.breakingbadwiki.fragment.ExploreFragment
-import com.example.breakingbadwiki.fragment.GroupsFragment
-import com.example.breakingbadwiki.fragment.ProfileFragment
-import com.example.breakingbadwiki.fragment.TrendFragment
+import com.example.breakingbadwiki.fragment.*
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -107,54 +104,22 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_groups -> {
 
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
-                    // load fragment
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.frame_main, GroupsFragment())
-                    transaction.addToBackStack(null)
-                    transaction.commit()
-
-                    // check menu item
-                    binding.navigationViewMain.menu.getItem(1).isChecked = true
-
-                    // uncheck bottom navigation
-
-                    binding.bottomNavigationMain.menu.setGroupCheckable(0,true,false)
-                    for (i in 0 until  binding.bottomNavigationMain.menu.size()) {
-                        binding.bottomNavigationMain.menu.getItem(i).isChecked = false
-                    }
-                    binding.bottomNavigationMain.menu.setGroupCheckable(0,true,true)
-
-
-                    // close drawer
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    menuItemsListener(1,GroupsFragment())
 
                 }
-                R.id.menu_video_maker -> {
+                R.id.menu_other -> {
 
-                    Snackbar.make(binding.root, "You can create video", Snackbar.LENGTH_LONG)
-                        .setAction("Signup") {
-                            // new window appears
-                        }.setActionTextColor(ContextCompat.getColor(this, R.color.orange_dark))
-                        .show()
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
-                }
-                R.id.menu_translator -> {
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    menuItemsListener(2,OthersFragment())
 
-                    // open an activity
-                    val intent = Intent(this, MainActivity3::class.java)
-                    startActivity(intent)
                 }
+
 
                 ////////////////////////////////////////////////////////////
 
-                R.id.menu_open_wikimedia -> {
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
-                    openWebsite("https://breakingbad.fandom.com/wiki/Breaking_Bad_Wiki")
-                }
                 R.id.menu_open_wikipedia -> {
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    openWebsite("https://breakingbad.fandom.com/wiki/Breaking_Bad_Wiki")
+
                 }
 
             }
@@ -231,6 +196,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             binding.navigationViewMain.menu.getItem(1).isChecked = false
+            binding.navigationViewMain.menu.getItem(2).isChecked = false
 
             true
         }
@@ -260,6 +226,7 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         // check menu item off
         binding.navigationViewMain.menu.getItem(1).isChecked = false
+        binding.navigationViewMain.menu.getItem(2).isChecked = false
     }
 
 
@@ -271,5 +238,40 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = isChecked
     }
 
+    private fun menuItemsListener(menuItem : Int,fragment: Fragment) {
+
+        if (menuItem == 1) {
+            binding.navigationViewMain.menu.getItem(2).isChecked = false
+        } else if (menuItem == 2) {
+            binding.navigationViewMain.menu.getItem(1).isChecked = false
+        }
+
+        binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+        // load fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.frame_main, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+        // check menu item
+        binding.navigationViewMain.menu.getItem(menuItem).isChecked = true
+
+        // uncheck bottom navigation
+
+        checkCurrentBNItem(R.id.menu_explore,false)
+        checkCurrentBNItem(R.id.menu_trend,false)
+        checkCurrentBNItem(R.id.menu_profile,false)
+
+        binding.bottomNavigationMain.menu.setGroupCheckable(0,true,false)
+        for (i in 0 until  binding.bottomNavigationMain.menu.size()) {
+            binding.bottomNavigationMain.menu.getItem(i).isChecked = false
+        }
+        binding.bottomNavigationMain.menu.setGroupCheckable(0,true,true)
+
+
+        // close drawer
+        binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+
+    }
 
 }
