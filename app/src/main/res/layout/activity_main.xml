@@ -44,6 +44,17 @@
             android:layout_gravity="bottom"
             app:menu="@menu/menu_bottom_navigation" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_write"
+            app:tint="@color/white"
+            android:src="@drawable/ic_writer"
+            android:backgroundTint="@color/orange"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="100dp"
+            android:layout_gravity="end|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -53,5 +64,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/header_main"
         app:menu="@menu/menu_navigation_drawer" />
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

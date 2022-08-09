@@ -5,10 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.R
@@ -114,7 +116,8 @@ class MainActivity : AppCompatActivity() {
         firstRun()
 
         var currentBottomNavigation = R.id.menu_explore
-        var person = Person("","","","")
+        var person = Person("", "", "", "")
+        btnFabState(false)
         binding.bottomNavigationMain.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_explore -> {
@@ -127,9 +130,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_profile -> {
 
-                        if (person.name.isNotEmpty()) {
-                            replaceFragment(ProfileFragment(person))
-                        } else {
+                    if (person.name.isNotEmpty()) {
+                        replaceFragment(ProfileFragment(person))
+                    } else {
+
                         val sweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                         sweetAlertDialog.titleText = "You are not a writer!"
                         sweetAlertDialog.confirmText = "SignUp"
@@ -138,8 +142,7 @@ class MainActivity : AppCompatActivity() {
 
                         sweetAlertDialog.setCancelClickListener {
                             sweetAlertDialog.dismiss()
-                            binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked =
-                                true
+                            checkCurrentBNItem(currentBottomNavigation)
                         }
 
                         sweetAlertDialog.setConfirmClickListener {
@@ -149,19 +152,16 @@ class MainActivity : AppCompatActivity() {
                             alertDialog.setView(dialogBinding.root)
                             alertDialog.setCancelable(true)
                             alertDialog.show()
-                            binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked =
-                                true
+                            checkCurrentBNItem(currentBottomNavigation)
+
 
                             dialogBinding.btnSignUp.setOnClickListener {
                                 currentBottomNavigation = R.id.menu_profile
-                                binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked =
-                                    true
-
-
+                                checkCurrentBNItem(currentBottomNavigation)
 
 
                                 if (dialogBinding.dialogEdtName.length() > 0 && dialogBinding.dialogEdtGmail.length() > 0 && dialogBinding.dialogEdtId.length() > 0) {
-
+                                    btnFabState(true)
                                     val txtName = dialogBinding.dialogEdtName.text.toString()
                                     val txtGmail = dialogBinding.dialogEdtGmail.text.toString()
                                     val txtID = dialogBinding.dialogEdtId.text.toString()
@@ -214,5 +214,14 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         // check menu item off
         binding.navigationViewMain.menu.getItem(1).isChecked = false
+    }
+
+
+    fun btnFabState(isVisible: Boolean) {
+        binding.fabWrite.isVisible = isVisible
+    }
+
+    fun checkCurrentBNItem(currentBottomNavigation: Int) {
+        binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = true
     }
 }

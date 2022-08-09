@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
     <androidx.cardview.widget.CardView
@@ -79,15 +79,29 @@
         app:layout_constraintStart_toStartOf="@+id/profile_txt_gmail"
         app:layout_constraintTop_toBottomOf="@+id/profile_txt_gmail" />
 
+
     <Button
         android:id="@+id/profile_btn_delete_account"
-        android:text="Delete My Account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:text="Delete My Account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:text="Welcome to our team you can now add/remove/edit items inside explore section"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_txt_Id" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

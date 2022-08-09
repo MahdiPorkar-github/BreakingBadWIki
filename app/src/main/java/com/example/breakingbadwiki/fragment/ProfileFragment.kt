@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.R
+import com.example.breakingbadwiki.activity.MainActivity
 import com.example.breakingbadwiki.data.Person
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
 import com.example.breakingbadwiki.databinding.FragmentProfileBinding
@@ -28,10 +29,12 @@ class ProfileFragment(val person: Person):Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.profileTxtUsername.text = person.name
         binding.profileTxtId.text = person.id
         binding.profileTxtGmail.text = person.gmail
         binding.profileTxtJob.text = person.job
+
 
 
         binding.profileBtnDeleteAccount.setOnClickListener {
@@ -51,10 +54,8 @@ class ProfileFragment(val person: Person):Fragment() {
                 Toast.makeText(context, "Account Deleted", Toast.LENGTH_SHORT).show()
                 sweetAlertDialog.dismiss()
 
-                val bNBinding = ActivityMainBinding.inflate(layoutInflater)
-//                bNBinding.bottomNavigationMain.menu.findItem(R.id.menu_explore).isChecked = true
 
-                bNBinding.bottomNavigationMain.selectedItemId = R.id.menu_explore
+
 
                 person.id= ""
                 person.job= ""
@@ -65,12 +66,18 @@ class ProfileFragment(val person: Person):Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.frame_main,ExploreFragment())
                 transaction.commit()
+
+                (requireActivity() as MainActivity).btnFabState(false)
+                (requireActivity() as MainActivity).checkCurrentBNItem(R.id.menu_explore)
+
             }
             sweetAlertDialog.show()
 
         }
 
     }
+
+
 
 
 
