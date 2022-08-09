@@ -68,7 +68,7 @@ class ProfileFragment(val person: Person):Fragment() {
                 transaction.commit()
 
                 (requireActivity() as MainActivity).btnFabState(false)
-                (requireActivity() as MainActivity).checkCurrentBNItem(R.id.menu_explore)
+                (requireActivity() as MainActivity).checkCurrentBNItem(R.id.menu_explore,true)
 
             }
             sweetAlertDialog.show()

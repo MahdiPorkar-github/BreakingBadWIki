@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_groups_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cartel" />
+
+        <TextView
+            android:id="@+id/txt_groups_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="The Cartel"
+            android:textColor="@color/black_light"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txt_groups_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:text="Mexican drug cartel active in at least two states"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="76dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray_light" />
+
+        <TextView
+            android:id="@+id/txt_groups_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="6dp"
+            android:maxLines="6"
+            android:text="The Cartel, was a Mexican drug cartel active in at least two states: in Michoacán and in Ciudad Juárez, Chihuahua Mexico, across the border from El Paso, Texas.
+The Cartel controlled one of the primary transportation routes for billions of dollars worth of illegal drug shipments annually entering the United States from Mexico. They were a ruthless and dangerous drug trafficking organization that had been known to decapitate their rivals, mutilate their corpses, and dump them in public in order to instill fear not only in the general public, but also in local law enforcement and their rivals.
+The Cartel was a very strictly hierarchical criminal organization. The Cartel’s boss was Don Eladio, and his word was law. Don Juan and Don Hector served as his most trusted men and most closest Capos. Behind Capos Bolsa and Hector there were other Capos below them. The shortened version 'Capo' has been used to refer to certain high-ranking members of Latin American drug cartels. It seemed from the beginning that in The Cartel's hierarchy, Eladio was number one, Bolsa was number two and Hector was number three.
+The Capos each had their own crews (which included soldiers, other employees etc.), territories and responsibilities that they controlled. In practice all Capos and other members of The Cartel were subordinates to Eladio and when big decisions were made, Eladio decided how to do things and also many other less important changes and plans required his blessing, but not all. Very often Eladio used his right-hand man Bolsa to pass instructions down through the chain of command.
+The Cartel was one of the most powerful criminal organizations (if not the most powerful) before its destruction as a result of former distributor and rival drug kingpin Gustavo Fring, who poisoned the majority of leaders of the Cartel in an act of revenge for Max Arciniega's death. "
+            android:textColor="@color/black_light"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

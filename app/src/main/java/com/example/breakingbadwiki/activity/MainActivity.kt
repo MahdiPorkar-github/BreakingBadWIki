@@ -17,7 +17,7 @@ import com.example.breakingbadwiki.data.Person
 import com.example.breakingbadwiki.databinding.ActivityMainBinding
 import com.example.breakingbadwiki.databinding.DialogSignUpBinding
 import com.example.breakingbadwiki.fragment.ExploreFragment
-import com.example.breakingbadwiki.fragment.PhotographerFragment
+import com.example.breakingbadwiki.fragment.GroupsFragment
 import com.example.breakingbadwiki.fragment.ProfileFragment
 import com.example.breakingbadwiki.fragment.TrendFragment
 import com.google.android.material.snackbar.Snackbar
@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         // if a writer joins the app we will re assign person values
         var person = Person("", "", "", "")
+
+        // used to check bottom navigation items
+        var currentBottomNavigation = R.id.menu_explore
 
 
         setSupportActionBar(binding.toolbarMain)
@@ -87,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                                     person = Person(txtName, "Writer", txtGmail, txtID)
                                     replaceFragment(ProfileFragment(person))
                                     alertDialog.dismiss()
-                                    checkCurrentBNItem(R.id.menu_profile)
+                                    checkCurrentBNItem(R.id.menu_profile,true)
 
                                 } else {
                                     Toast.makeText(this, "Complete all parts", Toast.LENGTH_SHORT)
@@ -102,16 +105,26 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                R.id.menu_photograph -> {
+                R.id.menu_groups -> {
+
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                     // load fragment
                     val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.frame_main, PhotographerFragment())
+                    transaction.add(R.id.frame_main, GroupsFragment())
                     transaction.addToBackStack(null)
                     transaction.commit()
 
                     // check menu item
                     binding.navigationViewMain.menu.getItem(1).isChecked = true
+
+                    // uncheck bottom navigation
+
+                    binding.bottomNavigationMain.menu.setGroupCheckable(0,true,false)
+                    for (i in 0 until  binding.bottomNavigationMain.menu.size()) {
+                        binding.bottomNavigationMain.menu.getItem(i).isChecked = false
+                    }
+                    binding.bottomNavigationMain.menu.setGroupCheckable(0,true,true)
+
 
                     // close drawer
                     binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
@@ -150,7 +163,6 @@ class MainActivity : AppCompatActivity() {
 
         firstRun()
 
-        var currentBottomNavigation = R.id.menu_explore
         btnFabState(false)
         binding.bottomNavigationMain.setOnItemSelectedListener {
             when (it.itemId) {
@@ -176,7 +188,7 @@ class MainActivity : AppCompatActivity() {
 
                         sweetAlertDialog.setCancelClickListener {
                             sweetAlertDialog.dismiss()
-                            checkCurrentBNItem(currentBottomNavigation)
+                            checkCurrentBNItem(currentBottomNavigation,true)
                         }
 
                         sweetAlertDialog.setConfirmClickListener {
@@ -186,12 +198,12 @@ class MainActivity : AppCompatActivity() {
                             alertDialog.setView(dialogBinding.root)
                             alertDialog.setCancelable(true)
                             alertDialog.show()
-                            checkCurrentBNItem(currentBottomNavigation)
+                            checkCurrentBNItem(currentBottomNavigation,true)
 
 
                             dialogBinding.btnSignUp.setOnClickListener {
                                 currentBottomNavigation = R.id.menu_profile
-                                checkCurrentBNItem(currentBottomNavigation)
+                                checkCurrentBNItem(currentBottomNavigation,true)
 
 
                                 if (dialogBinding.dialogEdtName.length() > 0 && dialogBinding.dialogEdtGmail.length() > 0 && dialogBinding.dialogEdtId.length() > 0) {
@@ -218,7 +230,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-//            binding.navigationViewMain.menu.getItem(1).isChecked = false
+            binding.navigationViewMain.menu.getItem(1).isChecked = false
 
             true
         }
@@ -255,12 +267,9 @@ class MainActivity : AppCompatActivity() {
         binding.fabWrite.isVisible = isVisible
     }
 
-    fun checkCurrentBNItem(currentBottomNavigation: Int) {
-        binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = true
+    fun checkCurrentBNItem(currentBottomNavigation: Int,isChecked:Boolean) {
+        binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = isChecked
     }
 
-    fun addWriter(person: Person) {
 
-
-    }
 }

@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_writer"
         android:title="be a writer" />
     <item
-        android:id="@+id/menu_photograph"
+        android:id="@+id/menu_groups"
         android:checkable="true"
         android:icon="@drawable/ic_photographer"
-        android:title="be a photographer" />
+        android:title="Groups" />
 
     <item
         android:id="@+id/menu_video_maker"

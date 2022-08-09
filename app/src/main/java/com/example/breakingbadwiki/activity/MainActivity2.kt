@@ -76,6 +76,24 @@ class MainActivity2 : AppCompatActivity() {
                 "Jesse Pinkman" -> {
                     url = "https://breakingbad.fandom.com/wiki/Jesse_Pinkman"
                 }
+                "The Cartel" -> {
+                    url = "https://breakingbad.fandom.com/wiki/The_Cartel"
+                }
+                "Gus' Drug Empire" -> {
+                        url = "https://breakingbad.fandom.com/wiki/Gus%27_Drug_Empire"
+                }
+
+                "Walt's Drug Empire" -> {
+                       url =  "https://breakingbad.fandom.com/wiki/Walt%27s_Drug_Empire"
+                }
+
+                "Drug Enforcement Administration" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Drug_Enforcement_Administration"
+                }
+
+                "Madrigal Electromotive" -> {
+                    url = "https://breakingbad.fandom.com/wiki/Madrigal_Electromotive_GmbH"
+                }
 
             }
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
