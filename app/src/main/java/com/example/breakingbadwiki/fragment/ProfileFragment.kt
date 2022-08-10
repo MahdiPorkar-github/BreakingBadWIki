@@ -31,7 +31,7 @@ class ProfileFragment(val person: Person):Fragment() {
 
 
         binding.profileTxtUsername.text = person.name
-        binding.profileTxtId.text = person.id
+        binding.profileTxtId.text = "@${person.id}"
         binding.profileTxtGmail.text = person.gmail
         binding.profileTxtJob.text = person.job
 

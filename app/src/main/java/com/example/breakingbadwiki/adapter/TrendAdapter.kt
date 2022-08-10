@@ -47,4 +47,12 @@ class TrendAdapter(private val data: ArrayList<ItemPost>,private val itemEvents:
     override fun getItemCount(): Int {
         return data.size
     }
+
+    fun addPost(newPost: ItemPost) {
+        // add food to list
+        data.add(0,newPost)
+
+        // notify recyclerview
+        notifyItemInserted(0)
+    }
 }

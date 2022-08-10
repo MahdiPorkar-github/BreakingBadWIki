@@ -97,7 +97,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:text="Welcome to our team you can now add/remove/edit items inside explore section"
+        android:text="Welcome to our team you can now add/remove/edit items in all sections"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_txt_Id" />

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.breakingbadwiki.activity.MainActivity
 import com.example.breakingbadwiki.activity.MainActivity2
 import com.example.breakingbadwiki.adapter.ExploreAdapter
 import com.example.breakingbadwiki.adapter.ItemEvents
@@ -33,6 +34,10 @@ class OthersFragment : Fragment(), ItemEvents {
         super.onViewCreated(view, savedInstanceState)
 
 
+        val othersCloneList : ArrayList<ItemPost> = (requireActivity() as MainActivity).getData().filter {
+            it.showOthers
+        } as ArrayList<ItemPost>
+
         val dataOthers = arrayListOf(
 
             ItemPost(
@@ -41,7 +46,7 @@ class OthersFragment : Fragment(), ItemEvents {
                 "spin-off and a prequel to Breaking Bad.",
                 "Better Call Saul is an American crime drama television series created by Vince Gilligan and Peter Gould. It is a spin-off and a prequel to to Gilligan's previous series, Breaking Bad. Set primarily in the early to middle part of the first decade of the 2000s in Albuquerque, New Mexico, the series develops Jimmy McGill (Bob Odenkirk), an earnest lawyer and former con artist, into a greedy criminal defense attorney known as Saul Goodman. Also shown is the moral decline of former police officer Mike Ehrmantraut (Jonathan Banks), who becomes a violent fixer for drug traffickers to support his granddaughter and her widowed mother. The show premiered on AMC on February 8, 2015. The sixth and final season consisting of 13 episodes premiered on April 18, 2022, and is set to conclude on August 15, 2022. ",
                 false,
-                ""
+                "", false, false, true
             ),
 
             ItemPost(
@@ -52,10 +57,10 @@ class OthersFragment : Fragment(), ItemEvents {
                         "\n" +
                         "The film chronicles the escape of 25-year-old Jesse Pinkman from captivity, directly following the events of the Breaking Bad series finale.[2][3] It was released on Netflix on October 11, 2019, and on Blu-Ray and DVD in October 2020. ",
                 false,
-                ""
+                "", false, false, true
             )
         )
-        val myAdapter = ExploreAdapter(dataOthers, this)
+        val myAdapter = ExploreAdapter(othersCloneList, this)
         binding.recyclerOthers.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.recyclerOthers.adapter = myAdapter
