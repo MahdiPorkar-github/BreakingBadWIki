@@ -432,11 +432,10 @@ class MainActivity : AppCompatActivity() {
                     val showExplore = dialogAddItemBinding.checkBoxExplore.isChecked
                     val showGroup = dialogAddItemBinding.checkBoxGroups.isChecked
                     val showOthers = dialogAddItemBinding.checkBoxOthers.isChecked
-                    val moreInfo
 
                     val insight = if (isTrend) {
                         val randomNum = (1..500).random()
-                        "$randomNum K"
+                        "+$randomNum K"
                     } else {
                         ""
                     }
@@ -525,6 +524,10 @@ class MainActivity : AppCompatActivity() {
 
     fun getData() : ArrayList<ItemPost> {
         return allData
+    }
+
+    fun deleteItem(itemPost: ItemPost) {
+        allData.remove(itemPost)
     }
 
 }

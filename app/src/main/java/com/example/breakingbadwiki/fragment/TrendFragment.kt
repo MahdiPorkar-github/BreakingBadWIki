@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.activity.MainActivity
 import com.example.breakingbadwiki.activity.MainActivity2
 import com.example.breakingbadwiki.adapter.ItemEvents
@@ -21,6 +22,8 @@ import com.example.breakingbadwiki.databinding.FragmentTrendBinding
 class TrendFragment : Fragment(), ItemEvents {
 
     lateinit var binding: FragmentTrendBinding
+    lateinit var myAdapter: TrendAdapter
+    lateinit var trendCloneList: ArrayList<ItemPost>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +38,7 @@ class TrendFragment : Fragment(), ItemEvents {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val trendCloneList: ArrayList<ItemPost> =
-            (requireActivity() as MainActivity).getData().filter {
-                it.isTrend
-            } as ArrayList<ItemPost>
+        trendCloneList = (requireActivity() as MainActivity).getData().filter { it.isTrend } as ArrayList<ItemPost>
 
 
         val dataTrend = arrayListOf(
@@ -106,7 +106,7 @@ class TrendFragment : Fragment(), ItemEvents {
                 false, false, false
             ),
         )
-        val myAdapter = TrendAdapter(trendCloneList, this)
+        myAdapter = TrendAdapter(trendCloneList, this)
         binding.recyclerTrend.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.recyclerTrend.adapter = myAdapter
@@ -117,6 +117,29 @@ class TrendFragment : Fragment(), ItemEvents {
         val intent = Intent(activity, MainActivity2::class.java)
         intent.putExtra(SEND_DATA_TO_MAIN_ACTIVITY2, itemPost)
         startActivity(intent)
+    }
+
+    override fun onItemLongClicked(itemPost: ItemPost) {
+        Toast.makeText(context, "${itemPost.txtTitle}", Toast.LENGTH_SHORT).show()
+        val sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+        sweetAlertDialog.titleText = "Delete item"
+        sweetAlertDialog.confirmText = "Delete"
+        sweetAlertDialog.cancelText = "Cancel"
+        sweetAlertDialog.contentText = "want to delete this item?!"
+
+        sweetAlertDialog.setCancelClickListener {
+            sweetAlertDialog.dismiss()
+        }
+
+        sweetAlertDialog.setConfirmClickListener {
+            (requireActivity() as MainActivity).deleteItem(itemPost)
+            trendCloneList.remove(itemPost)
+            myAdapter.notifyItemRemoved(trendCloneList.indexOf(itemPost))
+            sweetAlertDialog.dismiss()
+
+        }
+
+        sweetAlertDialog.show()
     }
 
 }

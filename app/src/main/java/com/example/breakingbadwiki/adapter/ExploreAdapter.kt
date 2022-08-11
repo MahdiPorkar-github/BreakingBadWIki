@@ -25,6 +25,11 @@ class ExploreAdapter(private val data: ArrayList<ItemPost>,private val itemEvent
                 itemEvents.onItemClicked(itemPost)
             }
 
+            itemView.setOnLongClickListener {
+                itemEvents.onItemLongClicked(itemPost)
+                true
+            }
+
         }
     }
 
@@ -40,6 +45,14 @@ class ExploreAdapter(private val data: ArrayList<ItemPost>,private val itemEvent
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+
+    fun removeFood(oldPost: ItemPost,oldPosition: Int) {
+
+        // remove item from list
+        data.remove(oldPost)
+        notifyItemRemoved(oldPosition)
     }
 
 }

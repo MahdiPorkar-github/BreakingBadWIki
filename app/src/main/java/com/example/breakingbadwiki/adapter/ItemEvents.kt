@@ -5,4 +5,7 @@ import com.example.breakingbadwiki.data.ItemPost
 interface ItemEvents {
 
     fun onItemClicked(itemPost: ItemPost)
+
+    fun onItemLongClicked(itemPost: ItemPost)
+
 }

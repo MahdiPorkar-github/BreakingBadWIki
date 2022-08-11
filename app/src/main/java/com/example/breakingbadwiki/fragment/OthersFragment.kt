@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.activity.MainActivity
 import com.example.breakingbadwiki.activity.MainActivity2
 import com.example.breakingbadwiki.adapter.ExploreAdapter
@@ -19,6 +21,8 @@ import com.example.breakingbadwiki.databinding.FragmentOthersBinding
 class OthersFragment : Fragment(), ItemEvents {
 
     lateinit var binding: FragmentOthersBinding
+    lateinit var myAdapter: ExploreAdapter
+    lateinit var othersCloneList: ArrayList<ItemPost>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +38,8 @@ class OthersFragment : Fragment(), ItemEvents {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val othersCloneList : ArrayList<ItemPost> = (requireActivity() as MainActivity).getData().filter {
-            it.showOthers
-        } as ArrayList<ItemPost>
+        othersCloneList = (requireActivity() as MainActivity).getData()
+            .filter { it.showOthers } as ArrayList<ItemPost>
 
         val dataOthers = arrayListOf(
 
@@ -60,7 +63,7 @@ class OthersFragment : Fragment(), ItemEvents {
                 "", false, false, true
             )
         )
-        val myAdapter = ExploreAdapter(othersCloneList, this)
+        myAdapter = ExploreAdapter(othersCloneList, this)
         binding.recyclerOthers.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.recyclerOthers.adapter = myAdapter
@@ -71,6 +74,29 @@ class OthersFragment : Fragment(), ItemEvents {
         val intent = Intent(activity, MainActivity2::class.java)
         intent.putExtra(SEND_DATA_TO_MAIN_ACTIVITY2, itemPost)
         startActivity(intent)
+    }
+
+    override fun onItemLongClicked(itemPost: ItemPost) {
+        Toast.makeText(context, "${itemPost.txtTitle}", Toast.LENGTH_SHORT).show()
+        val sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+        sweetAlertDialog.titleText = "Delete item"
+        sweetAlertDialog.confirmText = "Delete"
+        sweetAlertDialog.cancelText = "Cancel"
+        sweetAlertDialog.contentText = "want to delete this item?!"
+
+        sweetAlertDialog.setCancelClickListener {
+            sweetAlertDialog.dismiss()
+        }
+
+        sweetAlertDialog.setConfirmClickListener {
+            othersCloneList.remove(itemPost)
+            (requireActivity() as MainActivity).deleteItem(itemPost)
+            myAdapter.notifyItemRemoved(othersCloneList.indexOf(itemPost))
+            sweetAlertDialog.dismiss()
+
+        }
+
+        sweetAlertDialog.show()
     }
 
 }

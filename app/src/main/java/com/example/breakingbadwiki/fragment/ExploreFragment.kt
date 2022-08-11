@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.breakingbadwiki.activity.MainActivity
 import com.example.breakingbadwiki.activity.MainActivity2
 import com.example.breakingbadwiki.adapter.ExploreAdapter
 import com.example.breakingbadwiki.adapter.ItemEvents
+import com.example.breakingbadwiki.adapter.TrendAdapter
 import com.example.breakingbadwiki.data.ItemPost
 import com.example.breakingbadwiki.databinding.FragmentExploreBinding
 
@@ -20,7 +23,8 @@ const val SEND_DATA_TO_MAIN_ACTIVITY2 ="sendData"
 class ExploreFragment : Fragment() , ItemEvents{
 
     lateinit var binding: FragmentExploreBinding
-
+    lateinit var myAdapter: ExploreAdapter
+    lateinit var exploreCloneList: ArrayList<ItemPost>
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,9 +38,7 @@ class ExploreFragment : Fragment() , ItemEvents{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val exploreCloneList : ArrayList<ItemPost> = (requireActivity() as MainActivity).getData().filter {
-            it.showExplore
-        } as ArrayList<ItemPost>
+        exploreCloneList= (requireActivity() as MainActivity).getData().filter { it.showExplore } as ArrayList<ItemPost>
 
 
         val exploreData = arrayListOf(
@@ -106,7 +108,7 @@ class ExploreFragment : Fragment() , ItemEvents{
 
 
             )
-        val myAdapter = ExploreAdapter(exploreCloneList,this)
+        myAdapter = ExploreAdapter(exploreCloneList,this)
         binding.recyclerExplore.adapter = myAdapter
         binding.recyclerExplore.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -118,5 +120,28 @@ class ExploreFragment : Fragment() , ItemEvents{
         intent.putExtra(SEND_DATA_TO_MAIN_ACTIVITY2,itemPost)
         startActivity(intent)
     }
+
+    override fun onItemLongClicked(itemPost: ItemPost) {
+        Toast.makeText(context, "${itemPost.txtTitle}", Toast.LENGTH_SHORT).show()
+        val sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+        sweetAlertDialog.titleText = "Delete item"
+        sweetAlertDialog.confirmText = "Delete"
+        sweetAlertDialog.cancelText = "Cancel"
+        sweetAlertDialog.contentText = "want to delete this item?!"
+
+        sweetAlertDialog.setCancelClickListener {
+            sweetAlertDialog.dismiss()
+        }
+
+        sweetAlertDialog.setConfirmClickListener {
+            (requireActivity() as MainActivity).deleteItem(itemPost)
+            myAdapter.notifyItemRemoved(exploreCloneList.indexOf(itemPost))
+            sweetAlertDialog.dismiss()
+
+        }
+
+        sweetAlertDialog.show()
+    }
+
 
 }
