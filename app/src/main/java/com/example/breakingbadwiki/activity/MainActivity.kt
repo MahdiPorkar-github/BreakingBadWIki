@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -22,6 +23,8 @@ import com.example.breakingbadwiki.fragment.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    // all local data we have
     val allData = arrayListOf(
         ItemPost(
             "https://www.cheatsheet.com/wp-content/uploads/2020/04/Mike-Ehrmantraut.jpg",
@@ -227,17 +230,15 @@ class MainActivity : AppCompatActivity() {
 
         )
 
+    // if a writer joins the app we will re assign person values
+    val person = Person("", "", "", "")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        // all local data we have
-
-        // if a writer joins the app we will re assign person values
-        var person = Person("", "", "", "")
 
         // used to check bottom navigation items
         var currentBottomNavigation = R.id.menu_explore
@@ -288,11 +289,10 @@ class MainActivity : AppCompatActivity() {
                             dialogBinding.btnSignUp.setOnClickListener {
 
                                 if (dialogBinding.dialogEdtName.length() > 0 && dialogBinding.dialogEdtGmail.length() > 0 && dialogBinding.dialogEdtId.length() > 0) {
-                                    btnFabState(true)
-                                    val txtName = dialogBinding.dialogEdtName.text.toString()
-                                    val txtGmail = dialogBinding.dialogEdtGmail.text.toString()
-                                    val txtID = dialogBinding.dialogEdtId.text.toString()
-                                    person = Person(txtName, "Writer", txtGmail, txtID)
+                                    person.name = dialogBinding.dialogEdtName.text.toString()
+                                    person.gmail = dialogBinding.dialogEdtGmail.text.toString()
+                                    person.id = dialogBinding.dialogEdtId.text.toString()
+                                    person.job = "Writer"
                                     replaceFragment(ProfileFragment(person))
                                     alertDialog.dismiss()
                                     checkCurrentBNItem(R.id.menu_profile, true)
@@ -336,7 +336,6 @@ class MainActivity : AppCompatActivity() {
 
         firstRun()
 
-        btnFabState(false)
         binding.bottomNavigationMain.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_explore -> {
@@ -380,11 +379,10 @@ class MainActivity : AppCompatActivity() {
 
 
                                 if (dialogBinding.dialogEdtName.length() > 0 && dialogBinding.dialogEdtGmail.length() > 0 && dialogBinding.dialogEdtId.length() > 0) {
-                                    btnFabState(true)
-                                    val txtName = dialogBinding.dialogEdtName.text.toString()
-                                    val txtGmail = dialogBinding.dialogEdtGmail.text.toString()
-                                    val txtID = dialogBinding.dialogEdtId.text.toString()
-                                    person = Person(txtName, "Writer", txtGmail, txtID)
+                                    person.name = dialogBinding.dialogEdtName.text.toString()
+                                    person.gmail = dialogBinding.dialogEdtGmail.text.toString()
+                                    person.id = dialogBinding.dialogEdtId.text.toString()
+                                    person.job = "Writer"
                                     replaceFragment(ProfileFragment(person))
                                     alertDialog.dismiss()
 
@@ -410,46 +408,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.bottomNavigationMain.setOnItemReselectedListener {
             // do nothing
-        }
-
-
-        binding.fabAddItem.setOnClickListener {
-
-            val alertDialog = AlertDialog.Builder(this).create()
-            val dialogAddItemBinding = DialogAddItemBinding.inflate(layoutInflater)
-            alertDialog.setView(dialogAddItemBinding.root)
-            alertDialog.setCancelable(true)
-            alertDialog.show()
-
-            dialogAddItemBinding.btnAdd.setOnClickListener {
-
-                if (dialogAddItemBinding.dialogAddEdtTitle.length() > 0 && dialogAddItemBinding.dialogEdtSubtitle.length() > 0 && dialogAddItemBinding.dialogAddEdtDetail.length() > 0 && dialogAddItemBinding.dialogAddEdtUrl.length() > 0) {
-                    val txtTitle = dialogAddItemBinding.dialogAddEdtTitle.text.toString()
-                    val txtSubtitle = dialogAddItemBinding.dialogEdtSubtitle.text.toString()
-                    val txtDetail = dialogAddItemBinding.dialogAddEdtDetail.text.toString()
-                    val txtUrl = dialogAddItemBinding.dialogAddEdtUrl.text.toString()
-                    val isTrend = dialogAddItemBinding.checkBoxTrend.isChecked
-                    val showExplore = dialogAddItemBinding.checkBoxExplore.isChecked
-                    val showGroup = dialogAddItemBinding.checkBoxGroups.isChecked
-                    val showOthers = dialogAddItemBinding.checkBoxOthers.isChecked
-
-                    val insight = if (isTrend) {
-                        val randomNum = (1..500).random()
-                        "+$randomNum K"
-                    } else {
-                        ""
-                    }
-
-
-                    allData.add(ItemPost(txtUrl,txtTitle,txtSubtitle,txtDetail,isTrend,insight,showExplore,showGroup,showOthers))
-                    alertDialog.dismiss()
-
-                } else {
-                    Toast.makeText(this, "Complete all parts", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-
         }
 
     }
@@ -478,9 +436,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-     fun btnFabState(isVisible: Boolean) {
-        binding.fabAddItem.isVisible = isVisible
-    }
+
 
     fun checkCurrentBNItem(currentBottomNavigation: Int, isChecked: Boolean) {
         binding.bottomNavigationMain.menu.findItem(currentBottomNavigation).isChecked = isChecked
@@ -522,12 +478,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getData() : ArrayList<ItemPost> {
+    fun getData(): ArrayList<ItemPost> {
         return allData
     }
 
     fun deleteItem(itemPost: ItemPost) {
         allData.remove(itemPost)
     }
+
+    fun isWriter() : Boolean{
+    return person.name != ""
+    }
+
+
 
 }

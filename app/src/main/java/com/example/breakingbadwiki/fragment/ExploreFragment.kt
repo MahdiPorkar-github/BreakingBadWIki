@@ -1,5 +1,6 @@
 package com.example.breakingbadwiki.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.example.breakingbadwiki.adapter.ExploreAdapter
 import com.example.breakingbadwiki.adapter.ItemEvents
 import com.example.breakingbadwiki.adapter.TrendAdapter
 import com.example.breakingbadwiki.data.ItemPost
+import com.example.breakingbadwiki.databinding.DialogAddItemBinding
 import com.example.breakingbadwiki.databinding.FragmentExploreBinding
 
 const val SEND_DATA_TO_MAIN_ACTIVITY2 ="sendData"
@@ -112,6 +114,51 @@ class ExploreFragment : Fragment() , ItemEvents{
         binding.recyclerExplore.adapter = myAdapter
         binding.recyclerExplore.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
+        if ((requireActivity() as MainActivity).isWriter()) {
+            binding.fabAddItem.show()
+        }
+
+        binding.fabAddItem.setOnClickListener {
+
+            val alertDialog = AlertDialog.Builder(context).create()
+            val dialogAddItemBinding = DialogAddItemBinding.inflate(layoutInflater)
+            alertDialog.setView(dialogAddItemBinding.root)
+            alertDialog.setCancelable(true)
+            alertDialog.show()
+
+            dialogAddItemBinding.btnAdd.setOnClickListener {
+
+                if (dialogAddItemBinding.dialogAddEdtTitle.length() > 0 && dialogAddItemBinding.dialogEdtSubtitle.length() > 0 && dialogAddItemBinding.dialogAddEdtDetail.length() > 0 && dialogAddItemBinding.dialogAddEdtUrl.length() > 0) {
+                    val txtTitle = dialogAddItemBinding.dialogAddEdtTitle.text.toString()
+                    val txtSubtitle = dialogAddItemBinding.dialogEdtSubtitle.text.toString()
+                    val txtDetail = dialogAddItemBinding.dialogAddEdtDetail.text.toString()
+                    val txtUrl = dialogAddItemBinding.dialogAddEdtUrl.text.toString()
+                    val isTrend = dialogAddItemBinding.checkBoxTrend.isChecked
+                    val showExplore = dialogAddItemBinding.checkBoxExplore.isChecked
+                    val showGroup = dialogAddItemBinding.checkBoxGroups.isChecked
+                    val showOthers = dialogAddItemBinding.checkBoxOthers.isChecked
+
+                    val insight = if (isTrend) {
+                        val randomNum = (1..500).random()
+                        "+$randomNum K"
+                    } else {
+                        ""
+                    }
+                    alertDialog.dismiss()
+                    val item = ItemPost(txtUrl,txtTitle,txtSubtitle,txtDetail,isTrend,insight,showExplore,showGroup,showOthers)
+                    exploreCloneList.add(0,item)
+                    (requireActivity() as MainActivity).getData().add(0,item)
+                    myAdapter.notifyItemInserted(0)
+                    binding.recyclerExplore.scrollToPosition(0)
+
+                } else {
+                    Toast.makeText(context, "Complete all parts", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
+        }
     }
 
     override fun onItemClicked(itemPost: ItemPost) {
@@ -123,25 +170,35 @@ class ExploreFragment : Fragment() , ItemEvents{
 
     override fun onItemLongClicked(itemPost: ItemPost) {
         Toast.makeText(context, "${itemPost.txtTitle}", Toast.LENGTH_SHORT).show()
-        val sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-        sweetAlertDialog.titleText = "Delete item"
-        sweetAlertDialog.confirmText = "Delete"
-        sweetAlertDialog.cancelText = "Cancel"
-        sweetAlertDialog.contentText = "want to delete this item?!"
 
-        sweetAlertDialog.setCancelClickListener {
-            sweetAlertDialog.dismiss()
+        if ((requireActivity() as MainActivity).isWriter() ) {
+            val sweetAlertDialog = SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+            sweetAlertDialog.titleText = "Delete item"
+            sweetAlertDialog.confirmText = "Delete"
+            sweetAlertDialog.cancelText = "Cancel"
+            sweetAlertDialog.contentText = "want to delete this item?!"
+
+            sweetAlertDialog.setCancelClickListener {
+                sweetAlertDialog.dismiss()
+            }
+
+            sweetAlertDialog.setConfirmClickListener {
+                (requireActivity() as MainActivity).deleteItem(itemPost)
+                exploreCloneList.remove(itemPost)
+                myAdapter.notifyItemRemoved(exploreCloneList.indexOf(itemPost))
+                sweetAlertDialog.dismiss()
+
+            }
+
+            sweetAlertDialog.show()
+        } else {
+
         }
 
-        sweetAlertDialog.setConfirmClickListener {
-            (requireActivity() as MainActivity).deleteItem(itemPost)
-            myAdapter.notifyItemRemoved(exploreCloneList.indexOf(itemPost))
-            sweetAlertDialog.dismiss()
-
-        }
-
-        sweetAlertDialog.show()
     }
+
+
+
 
 
 }

@@ -24,7 +24,6 @@ class TrendAdapter(private val data: ArrayList<ItemPost>,private val itemEvents:
             binding.itemTrendTxtTitle.text = itemPost.txtTitle
             binding.itemTrendTxtSubtitle.text = itemPost.txtSubtitle
             binding.itemTrendTxtInsight.text = itemPost.insight
-            binding.itemTrendCounter.text = (adapterPosition + 1).toString()
 
             itemView.setOnClickListener {
 

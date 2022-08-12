@@ -67,7 +67,6 @@ class ProfileFragment(val person: Person):Fragment() {
                 transaction.replace(R.id.frame_main,ExploreFragment())
                 transaction.commit()
 
-                (requireActivity() as MainActivity).btnFabState(false)
                 (requireActivity() as MainActivity).checkCurrentBNItem(R.id.menu_explore,true)
 
             }
