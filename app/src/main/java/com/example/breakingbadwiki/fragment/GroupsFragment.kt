@@ -172,8 +172,8 @@ class GroupsFragment : Fragment() ,ItemEvents{
 
             sweetAlertDialog.setConfirmClickListener {
                 (requireActivity() as MainActivity).deleteItem(itemPost)
-                groupsCloneList.remove(itemPost)
                 myAdapter.notifyItemRemoved(groupsCloneList.indexOf(itemPost))
+                groupsCloneList.remove(itemPost)
                 sweetAlertDialog.dismiss()
 
             }

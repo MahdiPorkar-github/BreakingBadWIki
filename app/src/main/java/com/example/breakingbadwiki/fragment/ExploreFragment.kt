@@ -184,8 +184,8 @@ class ExploreFragment : Fragment() , ItemEvents{
 
             sweetAlertDialog.setConfirmClickListener {
                 (requireActivity() as MainActivity).deleteItem(itemPost)
-                exploreCloneList.remove(itemPost)
                 myAdapter.notifyItemRemoved(exploreCloneList.indexOf(itemPost))
+                exploreCloneList.remove(itemPost)
                 sweetAlertDialog.dismiss()
 
             }

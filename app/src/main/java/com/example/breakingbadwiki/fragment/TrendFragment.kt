@@ -180,8 +180,8 @@ class TrendFragment : Fragment(), ItemEvents {
 
             sweetAlertDialog.setConfirmClickListener {
                 (requireActivity() as MainActivity).deleteItem(itemPost)
-                trendCloneList.remove(itemPost)
                 myAdapter.notifyItemRemoved(trendCloneList.indexOf(itemPost))
+                trendCloneList.remove(itemPost)
                 sweetAlertDialog.dismiss()
 
             }
