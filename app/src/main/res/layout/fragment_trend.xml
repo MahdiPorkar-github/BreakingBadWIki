@@ -7,6 +7,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_trend"
+        android:layoutAnimation="@anim/recycler"
         android:layout_width="match_parent"
         tools:listitem="@layout/item_trend"
         android:paddingBottom="16dp"
